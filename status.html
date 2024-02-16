@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title id="title"></title>
+$(if refresh-timeout)
+<meta http-equiv="refresh" content="$(refresh-timeout-secs)">
+$(endif)
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<meta name="theme-color" content="#1FA2FF" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="css/style.css">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="stylesheet" type="text/css" href="css/vanzj.css">
+
+
+
+<script language="JavaScript">
+
+$(if advert-pending == 'yes')
+    var popup = '';
+    function focusAdvert() {
+	if (window.focus) popup.focus();
+    }
+    function openAdvert() {
+	popup = open('$(link-advert)', 'hotspot_advert', '');
+	setTimeout("focusAdvert()", 1000);
+    }
+$(endif)
+    function openLogout() {
+	if (window.name != 'hotspot_status') return true;
+        open('$(link-logout)', 'hotspot_logout', 'toolbar=0,location=0,directories=0,status=0,menubars=0,resizable=1,width=280,height=250');
+	window.close();
+	return false;
+    }
+
+</script>
+
+ 
+
+
+</head>
+<body $(if advert-pending == 'yes')	onLoad="openAdvert()" $(endif) >
+<div class="main">
+  $(if login-by == 'trial')
+	<div style="margin-top:20px; text-align: center; color:#fff;"><h3>Welcome</h3><i style="font-size:50px;" class="icon icon-user-circle-o">&#xf2be;</i> <h3>Free User</h3></div><br>
+$(elif login-by != 'mac')
+	<div style="margin-top:20px; text-align: center; color:#fff;"><h3>Welcome</h3><i style="font-size:50px;" class="icon icon-user-circle-o">&#xf2be;</i> <h3 id="user">$(username)</h3></div><br>
+$(endif)
+<div class="container">
+<form action="$(link-logout)" name="logout" onSubmit="return openLogout()">
+<br>
+<div class="prettyline"></div>
+<table class="table2">
+	<tr><td align="right" style="width: 40%;">IP Address <i class="icon icon-sitemap">&#xf0e8;</i> </td><td>$(ip)</td></tr>
+    <tr><td align="right">MAC Address <i class="icon icon-barcode">&#xe80a;</i> </td><td>$(mac)</td></tr>
+    <tr><td align="right">Upload <i class="icon icon-upload">&#xe808;</i> </td><td>$(bytes-in-nice)</td></tr>
+    <tr><td align="right">Download <i class="icon icon-download">&#xe809;</i> </td><td>$(bytes-out-nice)</td></tr>
+	<tr><td align="right">Connected <i class="icon icon-exchange">&#xf0ec;</i> </td><td>$(uptime)</td></tr>
+$(if remain-bytes-total)
+    <tr><td align="right">Bytes Left <i class="icon icon-hourglass-2">&#xf252;</i> </td><td>$(remain-bytes-total-nice)</td></tr>
+$(endif)
+$(if session-time-left)
+    <tr><td align="right">Time Left <i class="icon icon-clock">&#xe805;</i> </td><td>$(session-time-left)</td></tr>
+$(endif)
+$(if blocked == 'yes')
+	<tr><td align="right">Status <i class="icon icon-check">&#xe807;</i> </td><td><div style="color: #FF8080">
+<a href="$(link-advert)" target="hotspot_advert">advertisement</a> required</div></td></tr>
+$(elif refresh-timeout)
+	<tr><td align="right">Refresh <i <i class="icon icon-arrows-cw">&#xe800;</i> </td><td>$(refresh-timeout)</td></tr>
+$(endif)
+    <tr><td align="right">Expired <i <i class="icon icon-calendar">&#xe806;</i> </td><td style="padding-top:0px; padding-left:2px;"><iframe id="exp" frameborder="0" width="180" height="25" scrolling="no" marginheight="0" marginwidth="0" src="about:blank" align="middle"></iframe></td></tr>
+
+</table>
+    
+    
+$(if login-by-mac != 'yes')
+    <div class="prettyline"></div>
+<br>
+<!-- user manager link. if user manager resides on other router, replace $(hostname) by its address
+<button onclick="document.location='http://$(hostname)/user?subs='; return false;">status</button>
+<!-- end of user manager link -->
+$(endif)
+</form>
+ <div style="margin: 15px;">&#x09AA;&#x09C7;&#x0995;&#x09C7;&#x099C;&nbsp;&nbsp;&nbsp;&#x0995;&#x09BF;&#x09A8;&#x09A4;&#x09C7;&nbsp;&nbsp;&nbsp;&#x098F;&#x0996;&#x09BE;&#x09A8;&#x09C7;&nbsp;&nbsp;&nbsp;&#x0995;&#x09CD;&#x09B2;&#x09BF;&#x0995;&nbsp;&nbsp;&nbsp;&#x0995;&#x09B0;&#x09C1;&#x09A8;&#x0964;<a class="button" style="text-decoration: ; width: 80px;height: 20px;" href="https://www.facebook.com/sk.olide">Facebook</a></div>
+
+ <div style="margin: 15px;"><a class="button" style="text-decoration: ; width: 80px;height: 20px;" href="tel:+8801910-517910"> Call Me </a></div>
+</div>
+</div>
+
+
+</body>
+</html>
